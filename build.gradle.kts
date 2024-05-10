@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.8.0"
+    id("application")
 }
 
 group = "masadf"
@@ -15,6 +16,7 @@ dependencies {
     testImplementation("org.mockito:mockito-inline:2.13.0")
     testImplementation("org.testng:testng:7.1.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.apache.commons:commons-csv:1.9.0")
 }
 
 tasks.test {

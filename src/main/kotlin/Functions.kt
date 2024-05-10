@@ -1,7 +1,7 @@
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-class Functions(private val baseFunctions: BaseFunctions) {
+class Functions(private val baseFunctions: BaseFunctions = BaseFunctions()) {
     fun sin(x: Double) = baseFunctions.sin(x)
 
     fun ln(x: Double) = baseFunctions.ln(x)
