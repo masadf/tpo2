@@ -1,6 +1,5 @@
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVRecord
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.mockito.kotlin.*
@@ -8,11 +7,7 @@ import kotlin.test.assertEquals
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class SystemTest {
-    private val functions = spy<Functions>()
-    private val system = System(functions)
-
-    @BeforeEach
-    fun setUp() {
+    private fun setUp(functions: Functions) {
         CSVFormat.DEFAULT.parse(javaClass.classLoader.getResourceAsStream("csv/cos.csv")!!.reader()).forEach {
             whenever(functions.cos(it[0].toDouble())).thenReturn(it[1].toDouble())
         }
@@ -55,88 +50,109 @@ class SystemTest {
     }
 
     @Test
-    fun `with mocking all`() = withCsvData {
-        assertEquals(system.system(it[0].toDouble()), it[1].toDouble(), 0.001)
-    }
-
-    @Test
-    fun `with mocking all without sin`() {
-        whenever(functions.sin(any())).thenCallRealMethod()
+    fun `with mocking all`() {
+        val functions = mock<Functions>()
+        setUp(functions)
 
         withCsvData {
-            assertEquals(system.system(it[0].toDouble()), it[1].toDouble(), 0.001)
+            assertEquals(System(functions).system(it[0].toDouble()), it[1].toDouble(), 0.001)
         }
     }
 
     @Test
-    fun `with mocking all without cos`(x: Double, value: Double) {
+    fun `with mocking all without sin`() {
+        val functions = spy<Functions>()
+
+        withCsvData {
+            assertEquals(System(functions).system(it[0].toDouble()), it[1].toDouble(), 0.001)
+        }
+    }
+
+    @Test
+    fun `with mocking all without cos`() {
+        val functions = mock<Functions>()
+        setUp(functions)
         whenever(functions.cos(any())).thenCallRealMethod()
 
         withCsvData {
-            assertEquals(system.system(it[0].toDouble()), it[1].toDouble(), 0.001)
+            assertEquals(System(functions).system(it[0].toDouble()), it[1].toDouble(), 0.001)
         }
     }
 
     @Test
     fun `with mocking all without tan`() {
+        val functions = mock<Functions>()
+        setUp(functions)
         whenever(functions.tan(any())).thenCallRealMethod()
 
         withCsvData {
-            assertEquals(system.system(it[0].toDouble()), it[1].toDouble(), 0.001)
+            assertEquals(System(functions).system(it[0].toDouble()), it[1].toDouble(), 0.001)
         }
     }
 
     @Test
     fun `with mocking all without ctg`() {
+        val functions = mock<Functions>()
+        setUp(functions)
         whenever(functions.ctg(any())).thenCallRealMethod()
 
         withCsvData {
-            assertEquals(system.system(it[0].toDouble()), it[1].toDouble(), 0.001)
+            assertEquals(System(functions).system(it[0].toDouble()), it[1].toDouble(), 0.001)
         }
     }
 
     @Test
     fun `with mocking all without csc`() {
+        val functions = mock<Functions>()
+        setUp(functions)
         whenever(functions.csc(any())).thenCallRealMethod()
 
         withCsvData {
-            assertEquals(system.system(it[0].toDouble()), it[1].toDouble(), 0.001)
+            assertEquals(System(functions).system(it[0].toDouble()), it[1].toDouble(), 0.001)
         }
     }
 
     @Test
     fun `with mocking all without log5`() {
+        val functions = mock<Functions>()
+        setUp(functions)
         whenever(functions.log5(any())).thenCallRealMethod()
 
         withCsvData {
-            assertEquals(system.system(it[0].toDouble()), it[1].toDouble(), 0.001)
+            assertEquals(System(functions).system(it[0].toDouble()), it[1].toDouble(), 0.001)
         }
     }
 
     @Test
     fun `with mocking all without log3`() {
+        val functions = mock<Functions>()
+        setUp(functions)
         whenever(functions.log3(any())).thenCallRealMethod()
 
         withCsvData {
-            assertEquals(system.system(it[0].toDouble()), it[1].toDouble(), 0.001)
+            assertEquals(System(functions).system(it[0].toDouble()), it[1].toDouble(), 0.001)
         }
     }
 
     @Test
     fun `with mocking all without log2`() {
+        val functions = mock<Functions>()
+        setUp(functions)
         whenever(functions.log2(any())).thenCallRealMethod()
 
         withCsvData {
-            assertEquals(system.system(it[0].toDouble()), it[1].toDouble(), 0.001)
+            assertEquals(System(functions).system(it[0].toDouble()), it[1].toDouble(), 0.001)
         }
     }
 
     @Test
     fun `with mocking all without log10`() {
+        val functions = mock<Functions>()
+        setUp(functions)
         whenever(functions.log10(any())).thenCallRealMethod()
 
         withCsvData {
-            assertEquals(system.system(it[0].toDouble()), it[1].toDouble(), 0.001)
+            assertEquals(System(functions).system(it[0].toDouble()), it[1].toDouble(), 0.001)
         }
     }
 
